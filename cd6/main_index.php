@@ -1,22 +1,40 @@
-<?php 
-    session_start();
-    $username = $_SESSION['user'];
-    echo $username;
+<?php
+session_start();
+$sessionUser = $_SESSION['user'];
 
-    if(isset($_POST['destroy'])){
-        session_destroy();
-        header('Location: login.php');
+include_once("dbconn.php");
+global $dbconn;
+
+$fletchData = $dbconn->prepare("SELECT * FROM user WHERE user = :user");
+$fletchData->execute(['user' => $sessionUser]);
+$storeData = $fletchData->fetchAll();
+
+if($storeData != ''){
+    foreach($storeData as $row){
+        echo $row['name'].'<br>';
+        echo $row['lastname'].'<br>';
+        echo $row['user'].'<br>';
+
     }
+}
+
+if (isset($_POST['exit'])) {
+    session_destroy();
+    header('Location: login.php');
+}
 ?>
 
 <!DOCTYPE html>
+
 <head>
     <title>Login</title>
 </head>
 
 <body>
+    <img src="assets/images/profile.png" alt="Admin" class="rounded-circle" width="150">
     <form method="POST">
-        <button type="submit" name="destroy">Salir</button>
+        <button type="submit" name="exit">Salir</button>
     </form>
 </body>
+
 </html>
