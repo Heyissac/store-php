@@ -2,9 +2,6 @@
 require_once("dbconn.php");
 global $dbconn;
 
-global $table;
-$table = "user";
-
 if (isset($_POST['register'])) {
     if (isset($_POST['name']) && isset($_POST['lastname']) && isset($_POST['username']) && isset($_POST['password'])) {
         $name = trim($_POST['name']);
@@ -12,31 +9,35 @@ if (isset($_POST['register'])) {
         $username = trim($_POST['username']);
         $password = trim($_POST['password']);
 
-        $verifyuser = $dbconn->prepare("select user from user where user = :user");
-        $verifyuser->execute(['user' => $username]);
+        if (!empty($name) && !empty($lastname) && !empty($username) && !empty($password)) {
+            $verifyuser = $dbconn->prepare("select user from user where user = :user");
+            $verifyuser->execute(['user' => $username]);
+            $selectedUser = $verifyuser->fetch(PDO::FETCH_ASSOC);
 
-        $selectedUser = $verifyuser->fetch(PDO::FETCH_ASSOC);
-
-        if (isset($selectedUser) && !empty($selectedUser)) {
-            echo "Usuario existente.";
-        } elseif (empty($selectedUser)) {
-
-
-            $sql = "insert into user (user, password, name, lastname) values (:user, :password, :name, :lastname)";
-            $stmt = $dbconn->prepare($sql);
-
-            $result = $stmt->execute(array(':user' => $username, ':password' => $password, ':name' => $name, ':lastname' => $lastname));
-            if ($result) {
-                echo "<br>Datos generados";
+            if ($username == $selectedUser['user']) {
+                echo "Usuario existente.";
             } else {
-                echo '<br>';
-                echo 'Error Insertado los datos!';
+                $sql = "insert into user (user, password, name, lastname) values (:user, :password, :name, :lastname)";
+                $stmt = $dbconn->prepare($sql);
+
+                $result = $stmt->execute(array(':user' => $username, ':password' => $password, ':name' => $name, ':lastname' => $lastname));
+                if ($result) {
+                    session_start();
+                    $_SESSION['user'] = $username;
+                    header("Location: main_index.php");
+                } else {
+                    echo '<br>';
+                    echo 'Llena todos los campos';
+                }
             }
         } else {
-
-            echo 'no ha accesado correctamente este archivo!';
+            echo 'Llena los campos';
         }
     }
+}
+
+if(isset($_POST['login'])){
+    header('Location: login.php');
 }
 ?>
 

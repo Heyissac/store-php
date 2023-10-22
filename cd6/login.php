@@ -1,33 +1,41 @@
 <?php
+/* ========================= DB Connection ======================== */
 require_once("dbconn.php");
 global $dbconn;
 
+/* ========================= Login button ========================= */
 if (isset($_POST['login'])) {
     if (isset($_POST['username']) && isset($_POST['password'])) {
         $username = trim($_POST['username']);
         $password = trim($_POST['password']);
 
-        $verifyData = $dbconn->prepare("select * from user where user = :user and password = :password");
-        $dataResult = $verifyData->execute(array(':user' => $username, ':password' => $password));
-        //$getData = $dataResult->fetch(PDO::FETCH_ASSOC);
+        if (!empty($username) && !empty($password)) {
+            $verifyData = $dbconn->prepare("SELECT * FROM user WHERE user = :user");
+            $verifyData->execute(['user' => $username]);
 
-        if (isset($getData) && !empty($getData)) {
-            session_start();
-            $_SESSION['user'] = $username;
-            header("Location: main_index.php");
+            if ($verifyData->rowCount() > 0) {
+                $getData = $verifyData->fetch(PDO::FETCH_ASSOC);
+                if ($username == $getData['user']) {
+                    if ($password == $getData['password']) {
+                        session_start();
+                        $_SESSION['user'] = $username;
+                        header("Location: main_index.php");
+                    } else {
+                        echo "Contraseña incorrecta";
+                    }
+                }
+            } else {
+                echo "Usuario no existente";
+            }
         } else {
-            echo "Usuario o contraseña incorrectos.";
+            echo "Llene los campos.";
         }
-
     }
 }
-
+/* ========================= Register button ========================= */
 if (isset($_POST['register'])) {
     header("Location: register.php");
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
