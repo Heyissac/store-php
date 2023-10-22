@@ -1,0 +1,127 @@
+/* ==================== Display data ==================== */
+.body-toshow-data {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    /* Fondo gris claro */
+    color: #333;
+    /* Texto gris oscuro */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    font-size: 12px;
+    max-width: 800px;
+    min-height: 200px;
+    background-color: #f7f7f7;
+    /* Fondo gris claro */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    overflow: auto;
+    /* Agrega una barra de desplazamiento al contenedor */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    /* Texto gris oscuro */
+    margin-bottom: 20px;
+}
+
+form {
+    text-align: center;
+}
+
+label {
+    font-size: 18px;
+    color: #333;
+    /* Texto gris oscuro */
+    margin-right: 10px;
+}
+
+select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+select option:hover {
+    background-color: #FF0000; /* Cambia el color a tu preferencia */
+    color: #FFFFFF; /* Cambia el color del texto si es necesario */
+  }
+
+select:focus {
+    outline: none;
+    border-color: #3F021F;
+}
+
+input[type="submit"] {
+    background-color: #3F021F;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #C7025B;
+}
+
+#result {
+    margin-top: 20px;
+    border-radius: 5px;
+    overflow: auto;
+    /* Agrega una barra de desplazamiento al contenedor del resultado */
+    max-height: 300px;
+    /* Establece una altura máxima para el contenedor del resultado */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    max-width: 100%;
+    /* Ajusta el ancho máximo de la tabla al contenedor */
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #3F021F;
+    /* Azul brillante */
+    color: #fff;
+}
+
+td {
+    color: #333;
+    /* Texto gris oscuro */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+    /* Fondo gris claro para filas pares */
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+    /* Fondo blanco para filas impares */
+}
+
+tr:hover {
+    background-color: #e0e0e0;
+    /* Gris claro al hacer hover */
+}
