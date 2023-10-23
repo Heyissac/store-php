@@ -17,6 +17,7 @@ $result = $dbconn->query($query);
 <html>
 
 <head>
+    <link rel="shortcut icon" href="assets/images/icons/products.png" type="image/x-icon">
     <title>Productos con Línea de Producto</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="assets/css/navbar.css">
@@ -33,6 +34,8 @@ $result = $dbconn->query($query);
             </div>
             <div class="main_list" id="mainListDiv">
                 <ul>
+                    <li><a href="crud.php"><i class="bi fs-5 bi-cloud-fog-fill me-2" style="padding: 10px"></i>CRUD</a>
+                    </li>
                     <li><a href="order_details.php"><i class="bi fs-5 bi-list-ul me-2"
                                 style="padding: 10px"></i>Ordenes</a></li>
                     <li><a href="form.php"><i class="bi fs-5 bi bi-search me-2" style="padding: 10px"></i>Buscar

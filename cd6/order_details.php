@@ -17,6 +17,7 @@ $result = $dbconn->query($query);
 
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="assets/images/icons/order.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="assets/css/order.css">
     <link rel="stylesheet" type="text/css" href="assets/css/navbar.css">
@@ -33,8 +34,11 @@ $result = $dbconn->query($query);
             </div>
             <div class="main_list" id="mainListDiv">
                 <ul>
-                    <li><a href="form.php"><i class="bi fs-5 bi bi-search me-2" style="padding: 10px"></i>Buscar tablas</a></li>
-                    <li><a href="product_details.php"><i class="bi fs-5 bi-basket-fill me-2" style="padding: 10px"></i>Productos</a></li>
+                    <li><a href="crud.php"><i class="bi fs-5 bi-cloud-fog-fill me-2" style="padding: 10px"></i>CRUD</a></li>
+                    <li><a href="form.php"><i class="bi fs-5 bi bi-search me-2" style="padding: 10px"></i>Buscar
+                            tablas</a></li>
+                    <li><a href="product_details.php"><i class="bi fs-5 bi-basket-fill me-2"
+                                style="padding: 10px"></i>Productos</a></li>
                     <div class="dropdown">
                         <button class="dropbtn"><i class="bi fs-5 bi-people-fill me-2"
                                 style="margin-right: 10px"></i>PERFIL
@@ -55,7 +59,7 @@ $result = $dbconn->query($query);
     <!------------ Data section ------------>
     <div class=" body-toshow-data">
         <div class="container">
-        <h1>Detalles de Órdenes</h1>
+            <h1>Detalles de Órdenes</h1>
             <div class="table-container">
                 <table>
                     <thead>

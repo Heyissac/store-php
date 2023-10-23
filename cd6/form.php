@@ -22,6 +22,7 @@ if (isset($_GET['close'])) {
 
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="assets/images/icons/search.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -34,21 +35,28 @@ if (isset($_GET['close'])) {
     <nav class="nav">
         <div class="navbar-container">
             <div class="logo">
-                <a href="main_index.php"><i class="bi fs-5 bi-house-fill me-2" style="margin-right: 10px"></i>Geekopolis</a>
+                <a href="main_index.php"><i class="bi fs-5 bi-house-fill me-2"
+                        style="margin-right: 10px"></i>Geekopolis</a>
             </div>
             <div class="main_list" id="mainListDiv">
                 <ul>
-                <li><a href="order_details.php"><i class="bi fs-5 bi-list-ul me-2" style="padding: 10px"></i>Ordenes</a></li>
-                    <li><a href="product_details.php"><i class="bi fs-5 bi-basket-fill me-2" style="padding: 10px"></i>Productos</a></li>
+                    <li><a href="crud.php"><i class="bi fs-5 bi-cloud-fog-fill me-2"
+                                style="padding: 10px"></i>CRUD</a></li>
+                    <li><a href="order_details.php"><i class="bi fs-5 bi-list-ul me-2"
+                                style="padding: 10px"></i>Ordenes</a></li>
+                    <li><a href="product_details.php"><i class="bi fs-5 bi-basket-fill me-2"
+                                style="padding: 10px"></i>Productos</a></li>
                     <div class="dropdown">
-                        <button class="dropbtn"><i class="bi fs-5 bi-people-fill me-2" style="margin-right: 10px"></i>PERFIL
+                        <button class="dropbtn"><i class="bi fs-5 bi-people-fill me-2"
+                                style="margin-right: 10px"></i>PERFIL
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <div class="dropdown-content">
                             <a href="#"><i class="bi fs-5 bi-person-fill me-2" style="margin-right: 10px"></i>
                                 <?php echo $sessionUser; ?>
                             </a>
-                            <a href="form.php?close=1" name="close"><i class="bi fs-5 bi-x-square-fill me-2" style="margin-right: 10px"></i>Salir</a>
+                            <a href="form.php?close=1" name="close"><i class="bi fs-5 bi-x-square-fill me-2"
+                                    style="margin-right: 10px"></i>Salir</a>
                         </div>
                     </div>
                 </ul>
