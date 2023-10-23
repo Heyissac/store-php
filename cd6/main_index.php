@@ -32,6 +32,16 @@ if (isset($_GET['close'])) {
 if (isset($_POST['show-tables']) || isset($_GET['find-table'])) {
     header('Location: form.php');
 }
+
+/* ======================= Details Tables ===================== */
+if(isset($_GET['detail-order'])){
+    header('Location: order_details.php');
+}
+
+if(isset($_GET['detail-product'])){
+    header('Location: product_details.php');
+}
+
 ?>
 
 <!doctype html>
@@ -62,7 +72,9 @@ if (isset($_POST['show-tables']) || isset($_GET['find-table'])) {
             <li><a href="#"><i class="bi bi-house-fill fs-5 me-2" style="color: #3F021F"></i>Inicio</a></li>
             <li><a href="#about"><i class="bi fs-5 bi-info-circle-fill me-2" style="color: #3F021F"></i>Acerca</a></li>
             <li><a href="form.php?find-table=1" name="find-table"><i class="bi fs-5 bi-newspaper me-2" style="color: #3F021F"></i>Buscar tablas</a></li>
-            <li><a href="form.php?close=1" name="close"><i class="bifs-5  bi-box-arrow-left me-2" style="color: #3F021F"></i>Salir</a></li>
+            <li><a href="order_details.php?detail-oder=1" name="detail-order"><i class="bi fs-5 bi-list-ul me-2" style="color: #3F021F"></i>Ordenes</a></li>
+            <li><a href="product_details.php?detail-product=1" name="detail-product"><i class="bi fs-5 bi-basket-fill me-2" style="color: #3F021F"></i>Productos</a></li>
+            <li><a href="login.php?close=1" name="close"><i class="bifs-5  bi-box-arrow-left me-2" style="color: #3F021F"></i>Salir</a></li>
         </ul>
     </div>
 </header>
