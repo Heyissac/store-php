@@ -36,28 +36,73 @@ if (isset($_POST['register'])) {
     }
 }
 
-if(isset($_POST['login'])){
+if (isset($_POST['login'])) {
     header('Location: login.php');
 }
 ?>
 
 
-<html !DOCTYPE>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <title> Registro </title>
+    <link rel="stylesheet" href="assets/css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-    <form method="POST">
-        <input type="text" name="name" placeholder="Nombre"></input>
-        <input type="text" name="lastname" placeholder="Apellido"></input>
-        <input type="text" name="username" placeholder="usuario"></input>
-        <input type="password" name="password" placeholder="contraseña"></input>
-        <button type="submit" name="register">Registrar</button>
-        <button type="submit" name="login">Login si tienes acc...</button>
+    <div class="container">
+        <input type="checkbox" id="flip">
+        <div class="cover">
+            <div class="front">
+                <img src="assets/images/register.jpg" alt="">
+                <div class="text">
+                    <span class="text-1">Cada amigo nuevo es <br> una nueva aventura</span>
+                    <span class="text-2">Vamos a conectarnos</span>
+                </div>
+            </div>
+        </div>
+        <div class="forms">
+            <div class="form-content">
 
-    </form>
+                <div class="signup-form">
+                    <div class="title">Registrarse</div>
+                    <form method="POST">
+                        <div class="input-boxes">
+                            <div class="input-box">
+                                <i class="fas fa-user"></i>
+                                <input name="name" type="text" placeholder="Nombre" required>
+                            </div>
+                            <div class="input-box">
+                                <i class="fas fa-envelope"></i>
+                                <input name="lastname" type="text" placeholder="Apellido" required>
+                            </div>
+                            <div class="input-box">
+                                <i class="fas fa-user"></i>
+                                <input name="username" type="text" placeholder="Usuario" required>
+                            </div>
+                            <div class="input-box">
+                                <i class="fas fa-lock"></i>
+                                <input name="password" type="password" placeholder="Contraseña" required>
+                            </div>
+                            <div class="button input-box">
+                                <input name="register" type="submit" value="Registrar">
+                            </div>
+                            <div class="text sign-up-text">¿Ya tienes una cuenta? <a href="login.php">Logear</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
