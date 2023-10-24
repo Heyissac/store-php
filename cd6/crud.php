@@ -107,6 +107,71 @@ try {
 } catch (PDOException $e) {
     echo "Error al insertar datos de la oficina: " . $e->getMessage();
 }
+
+/* ========================= Update ========================= */
+if (isset($_POST['update_user'])) {
+    if (isset($_POST['usercode']) && isset($_POST['user']) && isset($_POST['password']) && isset($_POST['name']) && isset($_POST['lastname'])) {
+        $usercode = $_POST['usercode'];
+        $newUser = trim($_POST['user']);
+        $newPassword = trim($_POST['password']);
+        $newName = trim($_POST['name']);
+        $newLastName = trim($_POST['lastname']);
+
+        $sql = "UPDATE $table_user
+                SET user = :newUser, password = :newPassword, name = :newName, lastname = :newLastName
+                WHERE usercode = :usercode";
+
+        $stmt = $dbconn->prepare($sql);
+
+        if ($stmt->execute(['newUser' => $newUser, 'newPassword' => $newPassword, 'newName' => $newName, 'newLastName' => $newLastName, 'usercode' => $usercode])) {
+            echo "<script> alert('Usuario actualizado'); </script>";
+        } else {
+            echo "<script> alert('Error al actualizar el usuario'); </script>";
+        }
+    } else {
+        echo "<script> alert('Faltan datos para la actualización del usuario'); </script>";
+    }
+}
+
+if (isset($_POST['update_office'])) {
+    if (isset($_POST['officeCode']) && isset($_POST['city']) && isset($_POST['phone']) && isset($_POST['addressLine1']) && isset($_POST['addressLine2']) && isset($_POST['state']) && isset($_POST['country']) && isset($_POST['postalcode']) && isset($_POST['territory'])) {
+        $officeCode = trim($_POST['officeCode']);
+        $newCity = trim($_POST['city']);
+        $newPhone = trim($_POST['phone']);
+        $newAddress1 = trim($_POST['addressLine1']);
+        $newAddress2 = trim($_POST['addressLine2']);
+        $newState = trim($_POST['state']);
+        $newCountry = trim($_POST['country']);
+        $newPostalcode = trim($_POST['postalcode']);
+        $newTerritory = trim($_POST['territory']);
+
+        $sql = "UPDATE $table_office
+                SET city = :newCity, phone = :newPhone, addressLine1 = :newAddress1, addressLine2 = :newAddress2, 
+                state = :newState, country = :newCountry, postalcode = :newPostalcode, territory = :newTerritory
+                WHERE officeCode = :officeCode";
+
+        $stmt = $dbconn->prepare($sql);
+
+        if ($stmt->execute([
+            'newCity' => $newCity,
+            'newPhone' => $newPhone,
+            'newAddress1' => $newAddress1,
+            'newAddress2' => $newAddress2,
+            'newState' => $newState,
+            'newCountry' => $newCountry,
+            'newPostalcode' => $newPostalcode,
+            'newTerritory' => $newTerritory,
+            'officeCode' => $officeCode
+        ])) {
+            echo "<script> alert('Oficina actualizada'); </script>";
+        } else {
+            echo "<script> alert('Error al actualizar la oficina'); </script>";
+        }
+    } else {
+        echo "<script> alert('Faltan datos para la actualización de la oficina'); </script>";
+    }
+}
+
 /* ========================= Delete ========================= */
 if (isset($_GET['delete_all_users'])) {
     $deleteAllUsers = $dbconn->prepare("DELETE FROM $table_user");
