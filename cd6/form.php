@@ -40,8 +40,8 @@ if (isset($_GET['close'])) {
             </div>
             <div class="main_list" id="mainListDiv">
                 <ul>
-                    <li><a href="crud.php"><i class="bi fs-5 bi-cloud-fog-fill me-2"
-                                style="padding: 10px"></i>CRUD</a></li>
+                    <li><a href="crud.php"><i class="bi fs-5 bi-cloud-fog-fill me-2" style="padding: 10px"></i>CRUD</a>
+                    </li>
                     <li><a href="order_details.php"><i class="bi fs-5 bi-list-ul me-2"
                                 style="padding: 10px"></i>Ordenes</a></li>
                     <li><a href="product_details.php"><i class="bi fs-5 bi-basket-fill me-2"
@@ -111,10 +111,6 @@ if (isset($_GET['close'])) {
                 </div>
             </div>
         </div>
-
-        <!------- JS References ------->
-        <script src="assets/js/navbar.js"></script>
-
     </section>
 </body>
 

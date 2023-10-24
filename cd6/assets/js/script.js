@@ -6,9 +6,6 @@ $( document ).ready(function() {
     }else{
        // $('#menu-jk').scrollToFixed();
     }
-
-
-
 })
 
 $(document).ready(function(){
@@ -23,8 +20,6 @@ $(document).ready(function(){
         autoPlay:true
     });
 });
-
-
 
 $(document).ready(function(){
 

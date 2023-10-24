@@ -10,7 +10,7 @@ global $table_office;
 $table_user = "user";
 $table_office = "offices";
 
-// Función para obtener usuarios desde la base de datos
+/* ----- Función para obtener usuarios desde la base de datos ----- */
 function getUsersFromDatabase()
 {
     global $dbconn;
@@ -18,14 +18,14 @@ function getUsersFromDatabase()
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Función para obtener oficinas desde la base de datos
+/* ----- Función para obtener oficinas desde la base de datos ----- */
 function getOfficesFromDatabase()
 {
     global $dbconn;
     $query = $dbconn->query("SELECT officeCode, city FROM offices");
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
-
+/* ========================= Create ========================= */
 if (isset($_POST['create_user'])) {
     if (isset($_POST['name']) && isset($_POST['lastname']) && isset($_POST['user']) && isset($_POST['password'])) {
         $name = trim($_POST['name']);
@@ -107,8 +107,7 @@ try {
 } catch (PDOException $e) {
     echo "Error al insertar datos de la oficina: " . $e->getMessage();
 }
-
-// Verificar si se ha enviado un parámetro para eliminar todos los usuarios
+/* ========================= Delete ========================= */
 if (isset($_GET['delete_all_users'])) {
     $deleteAllUsers = $dbconn->prepare("DELETE FROM $table_user");
     if ($deleteAllUsers->execute()) {
@@ -136,7 +135,6 @@ if (isset($_GET['delete_all_offices'])) {
     }
 }
 
-// Verificar si se ha enviado un ID para eliminar un usuario
 if (isset($_GET['delete_usercode'])) {
     $deleteUserCode = $_GET['delete_usercode'];
 
@@ -177,15 +175,14 @@ if (isset($_GET['delete_officecode'])) {
         }
     }
 }
-
-// Leer todos los usuarios
+/* ========================= Read ========================= */
 $users = $dbconn->query("SELECT * FROM $table_user")->fetchAll(PDO::FETCH_ASSOC);
 
 // Leer todas las oficinas
 $offices = $dbconn->query("SELECT * FROM $table_office")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!----------------- HTML SECTION ----------------->
+<!----------------------- HTML SECTION ----------------------->
 <!DOCTYPE html>
 <html>
 
@@ -194,8 +191,32 @@ $offices = $dbconn->query("SELECT * FROM $table_office")->fetchAll(PDO::FETCH_AS
     <link rel="shortcut icon" href="assets/images/icons/crud.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="assets/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/crudnav.css">
     <link rel="stylesheet" type="text/css" href="assets/css/crud.css">
 </head>
+<header class="head">
+    <div class="logo border-bottom">
+        <!-- <img class="w-100" src="assets/images/geek.png" alt="" /> -->
+        <a class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list"></i>
+        </a>
+    </div>
+    <div id="navbarNav" class="navcol d-none d-lg-block">
+        <ul>
+            <li><a href="#"><i class="bi bi-hand-index-fill fs-5 me-2" style="color: #3F021F"></i>Inicio</a></li>
+            <li><a href="#create-form"><i class="bi fs-5 bi-file-earmark-plus-fill me-2"
+                        style="color: #3F021F"></i>Crear</a>
+            </li>
+            <li><a href="#delete-form" name="find-table"><i class="bi fs-5 bi-file-x-fill me-2"
+                        style="color: #3F021F"></i>Eliminar</a></li>
+            <li><a href="#read-form" name="detail-order"><i class="bi bi-book-fill me-2"
+                        style="color: #3F021F"></i>Leer</a></li>
+            <li><a href="#update-form" name="detail-product"><i class="bi fs-5 bi-plus-circle-fill me-2"
+                        style="color: #3F021F"></i>Actualizar</a></li>
+        </ul>
+    </div>
+</header>
 
 <body>
     <!------------ Navigation bar ------------>
@@ -230,216 +251,235 @@ $offices = $dbconn->query("SELECT * FROM $table_office")->fetchAll(PDO::FETCH_AS
             </div>
         </div>
     </nav>
-    <!----------------- Crud function ----------------->
-    <div class="body-crud">
-        <h1 class="form-header">Formulario para tabla 'user'</h1>
-        <form class="user-form" method="POST">
-            <div class="form-group">
-                <label for="user">Usuario:</label>
-                <input type="text" id="user" name="user" class="input-field" placeholder="Usuario">
-            </div>
-            <div class="form-group">
-                <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" class="input-field" placeholder="Contraseña">
-            </div>
-            <div class="form-group">
-                <label for="name">Nombre:</label>
-                <input type="text" id="name" name="name" class="input-field" placeholder="Nombre">
-            </div>
-            <div class="form-group">
-                <label for="lastname">Apellido:</label>
-                <input type="text" id="lastname" name="lastname" class="input-field" placeholder="Apellido">
-            </div>
-            <button type="submit" name="create_user" class="submit-button">Crear Usuario</button>
-        </form>
-        <h1 class="form-header">Formulario para tabla 'offices'</h1>
-        <form class="office-form" method="POST">
-            <div class="form-group">
-                <label for="officeCode">Código de oficina:</label>
-                <input type="text" id="officeCode" name="officeCode" class="input-field"
-                    placeholder="Código de oficina">
-            </div>
-            <div class="form-group">
-                <label for="city">Ciudad:</label>
-                <input type="text" id="city" name="city" class="input-field" placeholder="Ciudad">
-            </div>
-            <div class="form-group">
-                <label for="phone">Celular:</label>
-                <input type="number" id="phone" name="phone" class="input-field" placeholder="Celular">
-            </div>
-            <div class="form-group">
-                <label for="addressLine1">Dirección 1:</label>
-                <input type="text" id="addressLine1" name="addressLine1" class="input-field" placeholder="Dirección 1">
-            </div>
-            <div class="form-group">
-                <label for="addressLine2">Dirección 2:</label>
-                <input type="text" id="addressLine2" name="addressLine2" class="input-field" placeholder="Dirección 2">
-            </div>
-            <div class="form-group">
-                <label for="state">Estado:</label>
-                <input type="text" id="state" name="state" class="input-field" placeholder="Estado">
-            </div>
-            <div class="form-group">
-                <label for="country">País:</label>
-                <input type="text" id="country" name="country" class="input-field" placeholder="País">
-            </div>
-            <div class="form-group">
-                <label for="postalcode">Código Postal:</label>
-                <input type="text" id="postalcode" name="postalcode" class="input-field" placeholder="Código Postal">
-            </div>
-            <div class="form-group">
-                <label for="territory">Territorio:</label>
-                <input type="text" id="territory" name="territory" class="input-field" placeholder="Territorio">
-            </div>
-            <button type="submit" name="create_office" class="submit-button">Crear Oficina</button>
-        </form>
-        <!------------ Delete user and office ------------>
-        <h1 class="form-header">Eliminar Todos los Usuarios</h1>
-        <form class="delete-form" method="GET">
-            <button type="submit" name="delete_all_users" class="delete-button">Eliminar Todos los Usuarios</button>
-        </form>
+    <!----------------- Crud function for user ----------------->
+    <div class="main-content" name="index-crud">
+        <div class="body-crud">
+            <section name="create-form" id="create-form">
+                <h1 class="form-header">Crear usuario</h1>
+                <form class="user-form" method="POST">
+                    <div class="form-group">
+                        <label for="user">Usuario:</label>
+                        <input type="text" id="user" name="user" class="input-field" placeholder="Usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" name="password" class="input-field"
+                            placeholder="Contraseña">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="text" id="name" name="name" class="input-field" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Apellido:</label>
+                        <input type="text" id="lastname" name="lastname" class="input-field" placeholder="Apellido">
+                    </div>
+                    <button type="submit" name="create_user" class="submit-button">Crear Usuario</button>
+                </form>
+                <!----------------- Crud function for office ----------------->
+                <h1 class="form-header">Crear oficina</h1>
+                <form class="office-form" method="POST">
+                    <div class="form-group">
+                        <label for="officeCode">Código de oficina:</label>
+                        <input type="text" id="officeCode" name="officeCode" class="input-field"
+                            placeholder="Código de oficina">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Ciudad:</label>
+                        <input type="text" id="city" name="city" class="input-field" placeholder="Ciudad">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Celular:</label>
+                        <input type="number" id="phone" name="phone" class="input-field" placeholder="Celular">
+                    </div>
+                    <div class="form-group">
+                        <label for="addressLine1">Dirección 1:</label>
+                        <input type="text" id="addressLine1" name="addressLine1" class="input-field"
+                            placeholder="Dirección 1">
+                    </div>
+                    <div class="form-group">
+                        <label for="addressLine2">Dirección 2:</label>
+                        <input type="text" id="addressLine2" name="addressLine2" class="input-field"
+                            placeholder="Dirección 2">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">Estado:</label>
+                        <input type="text" id="state" name="state" class="input-field" placeholder="Estado">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">País:</label>
+                        <input type="text" id="country" name="country" class="input-field" placeholder="País">
+                    </div>
+                    <div class="form-group">
+                        <label for="postalcode">Código Postal:</label>
+                        <input type="text" id="postalcode" name="postalcode" class="input-field"
+                            placeholder="Código Postal">
+                    </div>
+                    <div class="form-group">
+                        <label for="territory">Territorio:</label>
+                        <input type="text" id="territory" name="territory" class="input-field" placeholder="Territorio">
+                    </div>
+                    <button type="submit" name="create_office" class="submit-button">Crear Oficina</button>
+                </form>
+            </section>
+            <!------------ Delete user and office ------------>
+            <section name="delete-form" id="delete-form">
+                <h1 class="form-header">Eliminar Todos los Usuarios</h1>
+                <form class="delete-form" method="GET">
+                    <button type="submit" name="delete_all_users" class="delete-button">Eliminar Todos los
+                        Usuarios</button>
+                </form>
 
-        <h1 class="form-header">Eliminar Todas las Oficinas</h1>
-        <form class="delete-form" method="GET">
-            <button type="submit" name="delete_all_offices" class="delete-button">Eliminar Todas las Oficinas</button>
-        </form>
+                <h1 class="form-header">Eliminar Todas las Oficinas</h1>
+                <form class="delete-form" method="GET">
+                    <button type="submit" name="delete_all_offices" class="delete-button">Eliminar Todas las
+                        Oficinas</button>
+                </form>
 
-        <h1 class="form-header">Eliminar Usuario por Usercode</h1>
-        <form class="delete-form" method="GET">
-            <select name="delete_usercode" class="select-field">
-                <option value="">Selecciona un usuario a eliminar</option>
-                <?php
-                foreach ($users as $user) {
-                    echo "<option value='" . $user['usercode'] . "'>" . $user['name'] . ' ' . $user['lastname'] . "</option>";
-                }
-                ?>
-            </select>
-            <button type="submit" class="delete-button">Eliminar Usuario</button>
-        </form>
+                <h1 class="form-header">Eliminar Usuario</h1>
+                <form class="delete-form" method="GET">
+                    <select name="delete_usercode" class="select-field">
+                        <option value="">Selecciona un usuario a eliminar</option>
+                        <?php
+                        foreach ($users as $user) {
+                            echo "<option value='" . $user['usercode'] . "'>" . $user['name'] . ' ' . $user['lastname'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                    <button type="submit" class="delete-button">Eliminar Usuario</button>
+                </form>
 
-        <h1 class="form-header">Eliminar Oficina por Código</h1>
-        <form class="delete-form" method="GET">
-            <select name="delete_officecode" class="select-field">
-                <option value="">Selecciona una oficina a eliminar</option>
-                <?php
-                foreach ($offices as $office) {
-                    echo "<option value='" . $office['officeCode'] . "'>" . $office['city'] . "</option>";
-                }
-                ?>
-            </select>
-            <button type="submit" class="delete-button">Eliminar Oficina</button>
-        </form>
-        <!------------ Read user and office ------------>
-        <h1 class="table-header">Lectura de Usuarios</h1>
-        <table class="data-table">
-            <tr>
-                <th>Usercode</th>
-                <th>User</th>
-                <th>Name</th>
-                <th>Lastname</th>
-            </tr>
-            <?php foreach ($users as $user) { ?>
-                <tr>
-                    <td>
-                        <?php echo $user['usercode']; ?>
-                    </td>
-                    <td>
-                        <?php echo $user['user']; ?>
-                    </td>
-                    <td>
-                        <?php echo $user['name']; ?>
-                    </td>
-                    <td>
-                        <?php echo $user['lastname']; ?>
-                    </td>
-                </tr>
-            <?php } ?>
-        </table>
+                <h1 class="form-header">Eliminar Oficina</h1>
+                <form class="delete-form" method="GET">
+                    <select name="delete_officecode" class="select-field">
+                        <option value="">Selecciona una oficina a eliminar</option>
+                        <?php
+                        foreach ($offices as $office) {
+                            echo "<option value='" . $office['officeCode'] . "'>" . $office['city'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                    <button type="submit" class="delete-button">Eliminar Oficina</button>
+                </form>
+            </section>
+            <!------------ Read user and office ------------>
+            <section name="read-form" id="read-form">
+                <h1 class="table-header">Lectura de Usuarios</h1>
+                <table class="data-table">
+                    <tr>
+                        <th>Usercode</th>
+                        <th>User</th>
+                        <th>Name</th>
+                        <th>Lastname</th>
+                    </tr>
+                    <?php foreach ($users as $user) { ?>
+                        <tr>
+                            <td>
+                                <?php echo $user['usercode']; ?>
+                            </td>
+                            <td>
+                                <?php echo $user['user']; ?>
+                            </td>
+                            <td>
+                                <?php echo $user['name']; ?>
+                            </td>
+                            <td>
+                                <?php echo $user['lastname']; ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </table>
 
-        <h1 class="table-header">Lectura de Oficinas</h1>
-        <table class="data-table">
-            <tr>
-                <th>OfficeCode</th>
-                <th>City</th>
-                <th>Phone</th>
-                <th>AddressLine1</th>
-                <th>AddressLine2</th>
-                <th>State</th>
-                <th>Country</th>
-                <th>PostalCode</th>
-                <th>Territory</th>
-            </tr>
-            <?php foreach ($offices as $office) { ?>
-                <tr>
-                    <td>
-                        <?php echo $office['officeCode']; ?>
-                    </td>
-                    <td>
-                        <?php echo $office['city']; ?>
-                    </td>
-                    <td>
-                        <?php echo $office['phone']; ?>
-                    </td>
-                    <td>
-                        <?php echo $office['addressLine1']; ?>
-                    </td>
-                    <td>
-                        <?php echo $office['addressLine2']; ?>
-                    </td>
-                    <td>
-                        <?php echo $office['state']; ?>
-                    </td>
-                    <td>
-                        <?php echo $office['country']; ?>
-                    </td>
-                    <td>
-                        <?php echo $office['postalCode']; ?>
-                    </td>
-                    <td>
-                        <?php echo $office['territory']; ?>
-                    </td>
-                </tr>
-            <?php } ?>
-        </table>
-        <!------------ Update user and office ------------>
-        <h1 class="form-header">Actualizar Usuario</h1>
-        <form class="update-form" method="POST">
-            <select name="usercode" class="select-field">
-                <option value="">Seleccione un usuario</option>
-                <?php
-                foreach ($users as $user) {
-                    echo "<option value='" . $user['usercode'] . "'>" . $user['name'] . " " . $user['lastname'] . "</option>";
-                }
-                ?>
-            </select>
-            <input type="text" name="user" class="text-input" placeholder="Nuevo Usuario">
-            <input type="password" name="password" class="text-input" placeholder="Nueva Contraseña">
-            <input type="text" name="name" class="text-input" placeholder="Nuevo Nombre">
-            <input type="text" name="lastname" class="text-input" placeholder="Nuevo Apellido">
-            <button type="submit" name="update_user" class="update-button">Actualizar Usuario</button>
-        </form>
+                <h1 class="table-header">Lectura de Oficinas</h1>
+                <table class="data-table">
+                    <tr>
+                        <th>OfficeCode</th>
+                        <th>City</th>
+                        <th>Phone</th>
+                        <th>AddressLine1</th>
+                        <th>AddressLine2</th>
+                        <th>State</th>
+                        <th>Country</th>
+                        <th>PostalCode</th>
+                        <th>Territory</th>
+                    </tr>
+                    <?php foreach ($offices as $office) { ?>
+                        <tr>
+                            <td>
+                                <?php echo $office['officeCode']; ?>
+                            </td>
+                            <td>
+                                <?php echo $office['city']; ?>
+                            </td>
+                            <td>
+                                <?php echo $office['phone']; ?>
+                            </td>
+                            <td>
+                                <?php echo $office['addressLine1']; ?>
+                            </td>
+                            <td>
+                                <?php echo $office['addressLine2']; ?>
+                            </td>
+                            <td>
+                                <?php echo $office['state']; ?>
+                            </td>
+                            <td>
+                                <?php echo $office['country']; ?>
+                            </td>
+                            <td>
+                                <?php echo $office['postalCode']; ?>
+                            </td>
+                            <td>
+                                <?php echo $office['territory']; ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </table>
+            </section>
+            <!------------ Update user and office ------------>
+            <section name="update-form" id="update-form">
+                <h1 class="form-header">Actualizar Usuario</h1>
+                <form class="update-form" method="POST">
+                    <select name="usercode" class="select-field">
+                        <option value="">Seleccione un usuario</option>
+                        <?php
+                        foreach ($users as $user) {
+                            echo "<option value='" . $user['usercode'] . "'>" . $user['name'] . " " . $user['lastname'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                    <input type="text" name="user" class="text-input" placeholder="Nuevo Usuario">
+                    <input type="password" name="password" class="text-input" placeholder="Nueva Contraseña">
+                    <input type="text" name="name" class="text-input" placeholder="Nuevo Nombre">
+                    <input type="text" name="lastname" class="text-input" placeholder="Nuevo Apellido">
+                    <button type="submit" name="update_user" class="update-button">Actualizar Usuario</button>
+                </form>
 
-        <h1 class="form-header">Actualizar Oficina</h1>
-        <form class="update-form" method="POST">
-            <select name="officeCode" class="select-field">
-                <option value="">Seleccione una oficina</option>
-                <?php
-                foreach ($offices as $office) {
-                    echo "<option value='" . $office['officeCode'] . "'>" . $office['city'] . "</option>";
-                }
-                ?>
-            </select>
-            <input type="text" name="city" class="text-input" placeholder="Nueva Ciudad">
-            <input type="number" name="phone" class="text-input" placeholder="Nuevo Teléfono">
-            <input type="text" name="addressLine1" class="text-input" placeholder="Nueva Dirección 1">
-            <input type="text" name="addressLine2" class="text-input" placeholder="Nueva Dirección 2">
-            <input type="text" name="state" class="text-input" placeholder="Nuevo Estado">
-            <input type="text" name="country" class="text-input" placeholder="Nuevo País">
-            <input type="text" name="postalcode" class="text-input" placeholder="Nuevo Código Postal">
-            <input type="text" name="territory" class="text-input" placeholder="Nuevo Territorio">
-            <button type="submit" name="update_office" class="update-button">Actualizar Oficina</button>
-        </form>
+                <h1 class="form-header">Actualizar Oficina</h1>
+                <form class="update-form" method="POST">
+                    <select name="officeCode" class="select-field">
+                        <option value="">Seleccione una oficina</option>
+                        <?php
+                        foreach ($offices as $office) {
+                            echo "<option value='" . $office['officeCode'] . "'>" . $office['city'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                    <input type="text" name="city" class="text-input" placeholder="Nueva Ciudad">
+                    <input type="number" name="phone" class="text-input" placeholder="Nuevo Teléfono">
+                    <input type="text" name="addressLine1" class="text-input" placeholder="Nueva Dirección 1">
+                    <input type="text" name="addressLine2" class="text-input" placeholder="Nueva Dirección 2">
+                    <input type="text" name="state" class="text-input" placeholder="Nuevo Estado">
+                    <input type="text" name="country" class="text-input" placeholder="Nuevo País">
+                    <input type="text" name="postalcode" class="text-input" placeholder="Nuevo Código Postal">
+                    <input type="text" name="territory" class="text-input" placeholder="Nuevo Territorio">
+                    <button type="submit" name="update_office" class="update-button">Actualizar Oficina</button>
+                </form>
+            </section>
+        </div>
     </div>
+
+    <!-- <script src="assets/js/navbar.js"></script> -->
 </body>
 
 </html>

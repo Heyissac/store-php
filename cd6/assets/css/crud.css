@@ -1,8 +1,10 @@
 .body-crud {
+    width: auto;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
+    padding-top: 80px;
 }
 
 .form-header {
@@ -40,7 +42,7 @@
 .submit-button {
     width: 100%;
     padding: 10px;
-    background-color: #007BFF;
+    background-color: #3F021F;
     border: none;
     border-radius: 4px;
     color: #fff;
@@ -49,7 +51,7 @@
 }
 
 .submit-button:hover {
-    background-color: #0056b3;
+    background-color: #B80057;
 }
 /* =============== delete form =============== */
 .form-header {
@@ -96,26 +98,33 @@
     margin-top: 20px;
 }
 
+.data-table-container {
+    text-align: center;
+}
+
 .data-table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 80%; /* Cambia el ancho según tus preferencias */
+    border-collapse: separate;
+    border-spacing: 0;
     margin: 20px auto;
+    border-radius: 10px; /* Agrega bordes redondeados */
+    overflow: hidden; /* Oculta los bordes redondeados fuera del contenedor */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .data-table th, .data-table td {
-    border: 1px solid #ccc;
+    border: none;
     padding: 10px;
     text-align: left;
 }
 
 .data-table th {
-    background-color: #007BFF; /* Cambia a tu color de encabezado deseado */
+    background-color: #3F021F;
     color: #fff;
 }
 
 .data-table tr:nth-child(even) {
-    background-color: #f2f2f2; /* Cambia a tu color de fila alternativa deseado */
+    background-color: #f2f2f2;
 }
 /* =============== Update form =============== */
 .update-form {
@@ -139,7 +148,7 @@
 .update-button {
     width: 100%;
     padding: 10px;
-    background-color: #007BFF; /* Cambia a tu color deseado para botones de actualización */
+    background-color: #3F021F; /* Cambia a tu color deseado para botones de actualización */
     border: none;
     border-radius: 4px;
     color: #fff;
@@ -148,5 +157,5 @@
 }
 
 .update-button:hover {
-    background-color: #0056b3; /* Cambia a tu color deseado para el estado de hover */
+    background-color: #B80057; /* Cambia a tu color deseado para el estado de hover */
 }
