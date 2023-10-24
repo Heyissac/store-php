@@ -145,7 +145,7 @@ if (isset($_GET['close'])) {
                         <h6 class="fw-bold">PHP</h6>
                         <div class="progress">
                             <div class="progress-bar bg-primary" role="progressbar" aria-label="Example with label"
-                                style="width: 46.7%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">46.7%
+                                style="width: 68.3%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">68.3
                             </div>
                         </div>
                     </div>
@@ -160,7 +160,7 @@ if (isset($_GET['close'])) {
                         <h6 class="fw-bold">JavaScript</h6>
                         <div class="progress">
                             <div class="progress-bar bg-primary" role="progressbar" aria-label="Example with label"
-                                style="width: 5.3%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">5.3%</div>
+                                style="width: 10.2%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">1.2%</div>
                         </div>
                     </div>
 
@@ -176,7 +176,7 @@ if (isset($_GET['close'])) {
                         <h6 class="fw-bold">MySQL</h6>
                         <div class="progress">
                             <div class="progress-bar bg-primary" role="progressbar" aria-label="Example with label"
-                                style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                style="width: 100%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">100%</div>
                         </div>
                     </div>
 
@@ -184,7 +184,7 @@ if (isset($_GET['close'])) {
                         <h6 class="fw-bold">SCSS</h6>
                         <div class="progress">
                             <div class="progress-bar bg-primary" role="progressbar" aria-label="Example with label"
-                                style="width: 66%;" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100">66%</div>
+                                style="width: 18.2%;" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100">8.2%</div>
                         </div>
                     </div>
                 </div>
