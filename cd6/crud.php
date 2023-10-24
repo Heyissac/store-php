@@ -39,22 +39,22 @@ if (isset($_POST['create_user'])) {
             $selectedUser = $verifyuser->fetch(PDO::FETCH_ASSOC);
 
             if ($selectedUser) {
-                echo "Usuario existente.";
+                echo "<script> alert('Usuario existente'); </script>";
             } else {
                 // Insertar un nuevo usuario
                 $sql = "insert into $table_user (user, password, name, lastname) VALUES (:user, :password, :name, :lastname)";
                 $stmt = $dbconn->prepare($sql);
                 if ($stmt->execute(['user' => $username, 'password' => $password, 'name' => $name, 'lastname' => $lastname])) {
-                    echo "<br>Datos generados";
+                    echo "<script> alert('Datos generados'); </script>";
                 } else {
-                    echo '<br>Error al insertar los datos.';
+                    echo "<script> alert('Error al insertar datos'); </script>";
                 }
             }
         } else {
-            echo 'Error en la consulta.';
+            echo "<script> alert('Error de consulta'); </script>";
         }
     } else {
-        echo 'Faltan datos en el formulario de usuario.';
+        echo "<script> alert('Faltan datos'); </script>";
     }
 }
 
@@ -77,7 +77,7 @@ try {
                 $selectedOffice = $verifyOffice->fetch(PDO::FETCH_ASSOC);
 
                 if ($selectedOffice) {
-                    echo "Oficina existente.";
+                    echo "<script> alert('Oficina existente'); </script>";
                 } else {
                     // Insertar una nueva oficina con el officeCode proporcionado
                     $sql = "INSERT INTO $table_office (officeCode, city, phone, addressLine1, addressLine2, state, country, postalcode, territory) 
@@ -96,9 +96,9 @@ try {
                             'territory' => $territory,
                         ])
                     ) {
-                        echo "<br>Datos de la oficina generados.";
+                        echo "<script> alert('Datos generados'); </script>";
                     } else {
-                        echo '<br>Error al insertar los datos de la oficina.';
+                        echo "<script> alert('Error al insertar datos'); </script>";
                     }
                 }
             }
@@ -111,9 +111,9 @@ try {
 if (isset($_GET['delete_all_users'])) {
     $deleteAllUsers = $dbconn->prepare("DELETE FROM $table_user");
     if ($deleteAllUsers->execute()) {
-        echo "Todos los usuarios han sido eliminados.";
+        echo "<script> alert('Usuarios eliminados'); </script>";
     } else {
-        echo "Error al eliminar todos los usuarios.";
+        echo "<script> alert('No se pudo eliminar a los usuarios'); </script>";
     }
 }
 
@@ -128,9 +128,9 @@ if (isset($_GET['delete_all_offices'])) {
         // Si no hay empleados relacionados, eliminar todas las oficinas
         $deleteAllOffices = $dbconn->prepare("DELETE FROM $table_office");
         if ($deleteAllOffices->execute()) {
-            echo "Todas las oficinas han sido eliminadas.";
+            echo "<script> alert('Oficinas eliminadas'); </script>";
         } else {
-            echo "Error al eliminar todas las oficinas.";
+            echo "<script> alert('Error al eliminar las oficinas'); </script>";
         }
     }
 }
@@ -142,12 +142,12 @@ if (isset($_GET['delete_usercode'])) {
     $deleteUser = $dbconn->prepare("DELETE FROM $table_user WHERE usercode = :usercode");
     if ($deleteUser->execute(['usercode' => $deleteUserCode])) {
         if ($deleteUser->rowCount() > 0) {
-            echo "Usuario con Usercode $deleteUserCode eliminado correctamente.";
+            echo "<script> alert('Usuario eliminado'); </script>";
         } else {
-            echo "No se encontró un usuario con Usercode $deleteUserCode para eliminar.";
+            echo "<script> alert('Usuario no encontrado'); </script>";
         }
     } else {
-        echo "Error al eliminar el usuario con Usercode $deleteUserCode.";
+        echo "<script> alert('Error al eliminar'); </script>";
     }
 }
 
@@ -166,12 +166,12 @@ if (isset($_GET['delete_officecode'])) {
         $deleteOffice = $dbconn->prepare("DELETE FROM $table_office WHERE officeCode = :officeCode");
         if ($deleteOffice->execute(['officeCode' => $deleteOfficeCode])) {
             if ($deleteOffice->rowCount() > 0) {
-                echo "Oficina con Código $deleteOfficeCode eliminada correctamente.";
+                echo "<script> alert('Oficina eliminada'); </script>";
             } else {
-                echo "No se encontró una oficina con Código $deleteOfficeCode para eliminar.";
+                echo "<script> alert('No se encontró la oficina.'); </script>";
             }
         } else {
-            echo "Error al eliminar la oficina con Código $deleteOfficeCode.";
+            echo "<script> alert('Error al eliminar la oficina'); </script>";
         }
     }
 }
@@ -191,7 +191,7 @@ $offices = $dbconn->query("SELECT * FROM $table_office")->fetchAll(PDO::FETCH_AS
     <link rel="shortcut icon" href="assets/images/icons/crud.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="assets/css/navbar.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/crudnav.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/header.css">
     <link rel="stylesheet" type="text/css" href="assets/css/crud.css">
 </head>
 <header class="head">

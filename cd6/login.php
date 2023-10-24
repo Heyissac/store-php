@@ -21,11 +21,11 @@ if (isset($_POST['login'])) {
                         $_SESSION['user'] = $username;
                         header("Location: main_index.php");
                     } else {
-                        echo "Contraseña incorrecta";
+                        echo "<script> alert('Contraseña incorrecta'); </script>";
                     }
                 }
             } else {
-                echo "Usuario no existente";
+                echo "<script> alert('Usuario no existente'); </script>";
             }
         } else {
             echo "Llene los campos.";
@@ -77,7 +77,7 @@ if (isset($_POST['register'])) {
                     <form method="POST">
                         <div class="input-boxes">
                             <div class="input-box">
-                                <i class="fas fa-envelope"></i>
+                                <i class="fas fa-user"></i>
                                 <input name="username" type="text" placeholder="Escribe tu usuario" required>
                             </div>
                             <div class="input-box">

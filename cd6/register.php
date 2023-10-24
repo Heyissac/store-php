@@ -15,7 +15,7 @@ if (isset($_POST['register'])) {
             $selectedUser = $verifyuser->fetch(PDO::FETCH_ASSOC);
 
             if ($username == $selectedUser['user']) {
-                echo "Usuario existente.";
+                echo "<script> alert('Usuario existente'); </script>";
             } else {
                 $sql = "insert into user (user, password, name, lastname) values (:user, :password, :name, :lastname)";
                 $stmt = $dbconn->prepare($sql);
@@ -51,6 +51,7 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="assets/css/login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,8 +64,8 @@ if (isset($_POST['login'])) {
             <div class="front">
                 <img src="assets/images/register.jpg" alt="">
                 <div class="text">
-                    <span class="text-1">Cada amigo nuevo es <br> una nueva aventura</span>
-                    <span class="text-2">Vamos a conectarnos</span>
+                    <span class="text-1">Bievenidos a <br> Geekopolis</span>
+                    <span class="text-2">- Gestión de base de datos -</span>
                 </div>
             </div>
         </div>
@@ -80,12 +81,12 @@ if (isset($_POST['login'])) {
                                 <input name="name" type="text" placeholder="Nombre" required>
                             </div>
                             <div class="input-box">
-                                <i class="fas fa-envelope"></i>
+                                <i class="fas fa-user"></i>
                                 <input name="lastname" type="text" placeholder="Apellido" required>
                             </div>
                             <div class="input-box">
-                                <i class="fas fa-user"></i>
-                                <input name="username" type="text" placeholder="Usuario" required>
+                                <i class="bi bi-person-circle"></i>
+                                <input name="username" id="username" type="text" placeholder="Usuario" required>
                             </div>
                             <div class="input-box">
                                 <i class="fas fa-lock"></i>
@@ -103,6 +104,8 @@ if (isset($_POST['login'])) {
             </div>
         </div>
     </div>
+
+    <script src="assets/js/log.js"></script>
 </body>
 
 </html>
